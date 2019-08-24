@@ -1,13 +1,12 @@
 # coding:utf-8
 import datetime
-import json
 import logging
 import socket
 import traceback
 
 from django.core.management.base import BaseCommand
 
-from apps.management.utils.gps_utils import get_gps_info_func
+from apps.utils.gps_utils import get_gps_info_func
 
 logger = logging.getLogger("django")
 

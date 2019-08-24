@@ -38,10 +38,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'channels',
 
 
     'apps',
 ]
+
+# 指定ASGI的路由地址
+ASGI_APPLICATION = 'wisdom_backend.routing.application'
+
+# 实时显示channels配置
+CHANNEL_LAYERS = {
+    'default': {
+        "CONFIG": {
+            # "hosts": [os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/2')],
+             "hosts": [('localhost', '6379')],
+        },
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 配置路由的路径
+        # "ROUTING": "gps_demo.routing.channel_routing",
+        },
+    }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

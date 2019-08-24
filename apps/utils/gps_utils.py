@@ -2,9 +2,9 @@
 """
 gps公共函数
 """
-from gps_data.consumers import push
 from datetime import datetime
 
+from apps.gps.consumers import push
 from apps.models.gps_md import GpsModel
 
 

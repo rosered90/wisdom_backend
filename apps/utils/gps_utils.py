@@ -32,7 +32,7 @@ def get_gps_info_func(gps_str):
             'latitude': latitude_str,
             'create_time': now_time_str
         }
-        gps_data_str = json.dumps(real_time_gps_data)
+        gps_data_str = real_time_gps_data
         push('push_gps_info', gps_data_str)
     else:
         return_info = "It's not position info"

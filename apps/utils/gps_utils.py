@@ -24,7 +24,7 @@ def get_gps_info_func(gps_str):
         gps_data = {'gps_code': gps_code, 'longitude': longitude_str, 'latitude': latitude_str}
         GpsModel.objects.create(**gps_data)
         # 同时将数据推送到前端页面，channles的group_name为“push_gps_info”
-        now_time_str = datetime.now()
+        now_time_str = str(datetime.now())
         # 转换成json格式，传给前端供实时显示
         real_time_gps_data = {
             'gps_code': gps_code,

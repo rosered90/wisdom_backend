@@ -17,7 +17,6 @@ class GpsConsumer(AsyncWebsocketConsumer):
             self.group_name,
             self.channel_name
         )
-
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -29,7 +28,6 @@ class GpsConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-
         await self.channel_layer.group_send(
             self.group_name,
             {
@@ -39,8 +37,7 @@ class GpsConsumer(AsyncWebsocketConsumer):
         )
 
     async def gps_message(self, event):
-        message = '定位信息：' + event['message']
-
+        message = event['message']
         await self.send(text_data=json.dumps({
             'message': message
         }))

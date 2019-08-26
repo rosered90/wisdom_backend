@@ -2,6 +2,7 @@
 """
 gps公共函数
 """
+import json
 from datetime import datetime
 
 from apps.gps.consumers import push
@@ -24,6 +25,14 @@ def get_gps_info_func(gps_str):
         GpsModel.objects.create(**gps_data)
         # 同时将数据推送到前端页面，channles的group_name为“push_gps_info”
         now_time_str = datetime.now()
-        push('push_gps_info', '设备编码:%s, 经度:%s, 纬度:%s,时间:%s, ' % (gps_code, longitude_str, latitude_str, now_time_str))
+        # 转换成json格式，传给前端供实时显示
+        real_time_gps_data = {
+            'gps_code': gps_code,
+            'longitude': longitude_str,
+            'latitude': latitude_str,
+            'create_time': now_time_str
+        }
+        gps_data_str = json.dumps(real_time_gps_data)
+        push('push_gps_info', gps_data_str)
     else:
         return_info = "It's not position info"

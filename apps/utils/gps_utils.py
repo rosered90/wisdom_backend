@@ -3,7 +3,10 @@
 gps公共函数
 """
 import json
+import time
 from datetime import datetime
+
+import requests
 
 from apps.gps.consumers import push
 from apps.models.gps_md import GpsModel
@@ -36,3 +39,22 @@ def get_gps_info_func(gps_str):
         push('push_gps_info', gps_data_str)
     else:
         return_info = "It's not position info"
+
+
+def judge_entry_geofence_func(location_str):
+    """
+    判断是否进入到电子围栏内
+    @location_str: 经纬度信息
+    """
+    time_str = int(time.time())
+    url = 'https://restapi.amap.com/v4/geofence/status'
+
+    payload = {
+        'key': '129ed5524f7785b3926273169b086906',
+        'diu': 'gp1440392518291',
+        'locations': "30.270918,119.963193,%s" % time_str,
+    }
+    r = requests.get(url, params=payload)
+    print(r.text)
+
+
